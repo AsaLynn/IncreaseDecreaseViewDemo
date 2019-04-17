@@ -1,6 +1,8 @@
 package com.zxn.crease;
 
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,14 +15,20 @@ import android.widget.TextView;
  */
 public class CreaseView extends RelativeLayout implements View.OnClickListener {
 
-    protected TextView ivDecrease;
+    protected TextView tvDecrease;
     protected TextView tvNum;
     protected TextView tvIncrease;
     protected LinearLayout llDecrease;
     protected LinearLayout llIncrease;
-    private int mCurrentNum;
+    private int mCurrentNum = 0;
     private int mMaxNum = Integer.MAX_VALUE;
+    private int mMinNum = 0;
     private OnCreaseChangeListener mOnCreaseChangeListener;
+    private boolean mDecreaseEnabled;
+    private boolean mIncreaseEnabled;
+    private Drawable mDecreaseDrawable;
+    private Drawable mIncreaseDrawable;
+    private Drawable mNumBackgroundDrawable;
 
     public CreaseView(Context context) {
         this(context, null);
@@ -32,13 +40,30 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener {
 
     public CreaseView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        onInit();
+        onInit(attrs);
     }
 
-    private void onInit() {
+    private void onInit(AttributeSet attrs) {
         LayoutInflater.from(getContext())
                 .inflate(R.layout.layout_crease_view, this);
-        initView(this);
+
+
+        TypedArray typedArray
+                = getContext()
+                .obtainStyledAttributes(attrs, R.styleable.CreaseView);
+        if (null != typedArray) {
+
+            mNumBackgroundDrawable = typedArray.getDrawable(R.styleable.CreaseView_numBackground);
+
+            mDecreaseDrawable = typedArray.getDrawable(R.styleable.CreaseView_decreaseIcon);
+
+            mIncreaseDrawable = typedArray.getDrawable(R.styleable.CreaseView_increaseIcon);
+
+            typedArray.recycle();
+        }
+
+        initView();
+
 
         //final Drawable d = a.getDrawable(R.styleable.ImageView_src);
         // background = a.getDrawable(attr);
@@ -52,38 +77,28 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener {
     public void onClick(View view) {
         if (view.getId() == R.id.ll_decrease) {//-
             mCurrentNum--;
-            if (mCurrentNum == 0) {
-                ivDecrease.setEnabled(false);
-                llDecrease.setClickable(ivDecrease.isEnabled());
+            if (mCurrentNum == mMinNum && mDecreaseEnabled) {
+                mDecreaseEnabled = !mDecreaseEnabled;
+                setDecreaseEnabled();
             }
-            if (mCurrentNum > 0 && mCurrentNum < mMaxNum && !tvIncrease.isEnabled()) {
-                tvIncrease.setEnabled(!tvIncrease.isEnabled());
-                llIncrease.setClickable(tvIncrease.isEnabled());
+            if (/*mCurrentNum > mMinNum && */mCurrentNum < mMaxNum && !mIncreaseEnabled) {
+                mIncreaseEnabled = !mIncreaseEnabled;
+                setIncreaseEnabled();
             }
-//            if (mCurrentNum < 0) {
-//                mCurrentNum = 0;
-//                return;
-//            }
             tvNum.setText(String.valueOf(mCurrentNum));
             if (mOnCreaseChangeListener != null) {
                 mOnCreaseChangeListener.onCreasedChanged(tvNum, mCurrentNum);
             }
-        } else if (view.getId() == R.id.tv_num) {
-
         } else if (view.getId() == R.id.ll_increase) {//+
             mCurrentNum++;
-            if (mCurrentNum == mMaxNum) {
-                tvIncrease.setEnabled(false);
-                llIncrease.setClickable(tvIncrease.isEnabled());
+            if (mCurrentNum == mMaxNum && mIncreaseEnabled) {
+                mIncreaseEnabled = !mIncreaseEnabled;
+                setIncreaseEnabled();
             }
-            if (mCurrentNum > 0 && !ivDecrease.isEnabled()) {
-                ivDecrease.setEnabled(!ivDecrease.isEnabled());
-                llDecrease.setClickable(ivDecrease.isEnabled());
+            if (mCurrentNum > mMinNum && !mDecreaseEnabled) {
+                mDecreaseEnabled = !mDecreaseEnabled;
+                setDecreaseEnabled();
             }
-//            if (mCurrentNum > mMaxNum) {
-//                mCurrentNum = mMaxNum;
-//                return;
-//            }
             tvNum.setText(String.valueOf(mCurrentNum));
             if (mOnCreaseChangeListener != null) {
                 mOnCreaseChangeListener.onCreasedChanged(tvNum, mCurrentNum);
@@ -91,19 +106,32 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener {
         }
     }
 
-    private void initView(View rootView) {
-        ivDecrease = findViewById(R.id.tv_decrease);
+    private void initView() {
+        tvDecrease = findViewById(R.id.tv_decrease);
+        if (null != mDecreaseDrawable) {
+            tvDecrease.setBackground(mDecreaseDrawable);
+        }
+
         tvNum = (TextView) findViewById(R.id.tv_num);
         tvNum.setText(String.valueOf(mCurrentNum));
-
-//        ivDecrease.setEnabled(mCurrentNum > 0);
-//        tvIncrease.setEnabled(mCurrentNum < mMaxNum);
+        if (null != mNumBackgroundDrawable) {
+            tvNum.setBackground(mNumBackgroundDrawable);
+        }
 
         tvIncrease = findViewById(R.id.tv_increase);
+        if (null != mIncreaseDrawable) {
+            tvIncrease.setBackground(mIncreaseDrawable);
+        }
         llDecrease = (LinearLayout) findViewById(R.id.ll_decrease);
         llDecrease.setOnClickListener(CreaseView.this);
         llIncrease = (LinearLayout) findViewById(R.id.ll_increase);
         llIncrease.setOnClickListener(CreaseView.this);
+
+        mDecreaseEnabled = mCurrentNum > mMinNum;
+        // mDecreaseEnabled = false;
+        setDecreaseEnabled();
+        mIncreaseEnabled = mCurrentNum < mMaxNum;
+        setIncreaseEnabled();
     }
 
     public interface OnCreaseChangeListener {
@@ -116,6 +144,10 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener {
         void onCreasedChanged(View view, int num);
     }
 
+    public void setOnCreaseChangeListener(OnCreaseChangeListener listener) {
+        this.mOnCreaseChangeListener = listener;
+    }
+
     public int getNum() {
         return mCurrentNum;
     }
@@ -123,8 +155,11 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener {
     public void setNum(int mCurrentNum) {
         this.mCurrentNum = mCurrentNum;
         tvNum.setText(String.valueOf(mCurrentNum));
-        ivDecrease.setEnabled(mCurrentNum > 0);
-        tvIncrease.setEnabled(mCurrentNum < mMaxNum);
+        mDecreaseEnabled = mCurrentNum > mMinNum;
+        mIncreaseEnabled = mCurrentNum < mMaxNum;
+
+        setDecreaseEnabled();
+        setIncreaseEnabled();
         if (mOnCreaseChangeListener != null) {
             mOnCreaseChangeListener.onCreasedChanged(tvNum, mCurrentNum);
         }
@@ -136,7 +171,28 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener {
 
     public void setMaxNum(int mMaxNum) {
         this.mMaxNum = mMaxNum;
-        ivDecrease.setEnabled(mCurrentNum > 0);
-        tvIncrease.setEnabled(mCurrentNum < mMaxNum);
+        mIncreaseEnabled = mCurrentNum < mMaxNum;
+        setIncreaseEnabled();
+    }
+
+    public int getMinNum() {
+        return mMinNum;
+    }
+
+    public void setMinNum(int mMinNum) {
+        this.mMinNum = mMinNum;
+        mDecreaseEnabled = mCurrentNum > mMinNum;
+        setDecreaseEnabled();
+    }
+
+    private void setDecreaseEnabled() {
+        tvDecrease.setEnabled(mDecreaseEnabled);
+        llDecrease.setClickable(mDecreaseEnabled);
+
+    }
+
+    private void setIncreaseEnabled() {
+        tvIncrease.setEnabled(mIncreaseEnabled);
+        llIncrease.setClickable(mIncreaseEnabled);
     }
 }

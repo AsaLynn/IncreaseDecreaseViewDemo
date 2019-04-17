@@ -3,8 +3,10 @@
 
     <declare-styleable name="CreaseView">
 
+        <attr name="numBackground" format="reference" />
         <attr name="decreaseIcon" format="reference" />
         <attr name="increaseIcon" format="reference" />
+
     </declare-styleable>
 
 

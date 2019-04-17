@@ -5,10 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    >
 
 
      <com.zxn.crease.CreaseView
+         app:numBackground="@drawable/bg_d_sp_rec_r_times"
+         app:increaseIcon="@drawable/bg_d_sc_oval_times"
+         app:decreaseIcon="@drawable/bg_d_sc_oval_times"
          android:id="@+id/creaseview"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content" />
