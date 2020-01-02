@@ -3,20 +3,26 @@ package com.zxn.crease;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by zxn on 2019/4/17.
  */
-public class CreaseView extends RelativeLayout implements View.OnClickListener {
+public class CreaseView extends RelativeLayout implements View.OnClickListener, TextWatcher {
 
     protected TextView tvDecrease;
-    protected TextView tvNum;
+    protected EditText tvNum;
     protected TextView tvIncrease;
     protected LinearLayout llDecrease;
     protected LinearLayout llIncrease;
@@ -86,6 +92,8 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener {
                 setIncreaseEnabled();
             }
             tvNum.setText(String.valueOf(mCurrentNum));
+            tvNum.setSelection(tvNum.getText().length());
+            tvNum.setCursorVisible(false);
             if (mOnCreaseChangeListener != null) {
                 mOnCreaseChangeListener.onCreasedChanged(tvNum, mCurrentNum);
             }
@@ -100,6 +108,8 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener {
                 setDecreaseEnabled();
             }
             tvNum.setText(String.valueOf(mCurrentNum));
+            tvNum.setSelection(tvNum.getText().length());
+            tvNum.setCursorVisible(false);
             if (mOnCreaseChangeListener != null) {
                 mOnCreaseChangeListener.onCreasedChanged(tvNum, mCurrentNum);
             }
@@ -109,18 +119,33 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener {
     private void initView() {
         tvDecrease = findViewById(R.id.tv_decrease);
         if (null != mDecreaseDrawable) {
-            tvDecrease.setBackground(mDecreaseDrawable);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                tvDecrease.setBackground(mDecreaseDrawable);
+            } else {
+                tvDecrease.setBackgroundDrawable(mDecreaseDrawable);
+            }
         }
 
-        tvNum = (TextView) findViewById(R.id.tv_num);
+        tvNum = findViewById(R.id.tv_num);
         tvNum.setText(String.valueOf(mCurrentNum));
+        tvNum.addTextChangedListener(this);
         if (null != mNumBackgroundDrawable) {
-            tvNum.setBackground(mNumBackgroundDrawable);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                tvNum.setBackground(mNumBackgroundDrawable);
+            } else {
+                tvNum.setBackgroundDrawable(mNumBackgroundDrawable);
+            }
+
         }
 
         tvIncrease = findViewById(R.id.tv_increase);
         if (null != mIncreaseDrawable) {
-            tvIncrease.setBackground(mIncreaseDrawable);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                tvIncrease.setBackground(mIncreaseDrawable);
+            } else {
+                tvIncrease.setBackgroundDrawable(mIncreaseDrawable);
+            }
+
         }
         llDecrease = (LinearLayout) findViewById(R.id.ll_decrease);
         llDecrease.setOnClickListener(CreaseView.this);
@@ -132,16 +157,7 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener {
         setDecreaseEnabled();
         mIncreaseEnabled = mCurrentNum < mMaxNum;
         setIncreaseEnabled();
-    }
 
-    public interface OnCreaseChangeListener {
-        /**
-         * Called when the mCurrentNum has changed.
-         *
-         * @param view The mCurrentNum view  whose state has changed.
-         * @param num  The new num.
-         */
-        void onCreasedChanged(View view, int num);
     }
 
     public void setOnCreaseChangeListener(OnCreaseChangeListener listener) {
@@ -155,6 +171,7 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener {
     public void setNum(int mCurrentNum) {
         this.mCurrentNum = mCurrentNum;
         tvNum.setText(String.valueOf(mCurrentNum));
+        tvNum.setSelection(tvNum.getText().length());
         mDecreaseEnabled = mCurrentNum > mMinNum;
         mIncreaseEnabled = mCurrentNum < mMaxNum;
 
@@ -194,5 +211,81 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener {
     private void setIncreaseEnabled() {
         tvIncrease.setEnabled(mIncreaseEnabled);
         llIncrease.setClickable(mIncreaseEnabled);
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        if (!TextUtils.isEmpty(s)) {
+            int inputNum = Integer.parseInt(s.toString());
+            if (inputNum > mMaxNum) {
+                mCurrentNum = mMaxNum;
+                Toast.makeText(getContext(), "输入最大值不可超过" + mMaxNum, Toast.LENGTH_LONG).show();
+                tvNum.setText(String.valueOf(mCurrentNum));
+                tvNum.setSelection(tvNum.getText().length());
+            } else if (inputNum < mMinNum) {
+                mCurrentNum = mMinNum;
+                Toast.makeText(getContext(), "输入最小值不可低于" + mMinNum, Toast.LENGTH_SHORT).show();
+                tvNum.setText(String.valueOf(mCurrentNum));
+                tvNum.setSelection(tvNum.getText().length());
+            } else {
+                mCurrentNum = inputNum;
+                if (mOnCreaseChangeListener != null) {
+                    mOnCreaseChangeListener.onCreasedChanged(tvNum, mCurrentNum);
+                }
+            }
+
+            if (mCurrentNum == mMaxNum && mIncreaseEnabled) {
+                mIncreaseEnabled = !mIncreaseEnabled;
+                setIncreaseEnabled();
+            } /*else if (mCurrentNum >= mMinNum && mCurrentNum < mMaxNum) {
+                mIncreaseEnabled = true;
+                setIncreaseEnabled();
+            }*/
+
+            if (mCurrentNum < mMaxNum && !mIncreaseEnabled) {
+                mIncreaseEnabled = !mIncreaseEnabled;
+                setIncreaseEnabled();
+            }
+            if (mCurrentNum > mMinNum && !mDecreaseEnabled) {
+                mDecreaseEnabled = !mDecreaseEnabled;
+                setDecreaseEnabled();
+            }
+
+            if (mCurrentNum == mMinNum && mDecreaseEnabled) {
+                mDecreaseEnabled = !mDecreaseEnabled;
+                setDecreaseEnabled();
+            }
+
+            //tvNum.setText(String.valueOf(mCurrentNum));
+//            if (mOnCreaseChangeListener != null) {
+//                mOnCreaseChangeListener.onCreasedChanged(tvNum, mCurrentNum);
+//            }
+        }
+
+    }
+
+    public void setCursorVisible(boolean visible) {
+        tvNum.setCursorVisible(visible);
+
+    }
+
+    public interface OnCreaseChangeListener {
+        /**
+         * Called when the mCurrentNum has changed.
+         *
+         * @param view The mCurrentNum view  whose state has changed.
+         * @param num  The new num.
+         */
+        void onCreasedChanged(View view, int num);
     }
 }
