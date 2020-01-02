@@ -279,6 +279,11 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
 
     }
 
+    public boolean isInputEmpty() {
+        return TextUtils.isEmpty(tvNum.getText());
+    }
+
+
     public interface OnCreaseChangeListener {
         /**
          * Called when the mCurrentNum has changed.
