@@ -61,8 +61,8 @@
     ```
 #### 效果图
     最终效果.
-    ![最终效果](/image/view1.png)
-    ![最终效果](https://github.com/zhang721688/IncreaseDecreaseViewDemo/tree/master/image/view1.png)
+    ![Image text](/image/view1.png)
+    ![Image text](https://github.com/zhang721688/IncreaseDecreaseViewDemo/tree/master/image/view1.png)
 #### 打标签:
 	
   数量增减控件
