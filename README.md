@@ -4,6 +4,7 @@
 #### 引入依赖
     引入依赖:
     ```
+    implementation 'com.zxn.crease:CreaseViewLib:1.0.5'
     implementation 'com.zxn.crease:CreaseViewLib:1.0.4'
     implementation 'com.zxn.crease:CreaseViewLib:1.0.3'
     ```
@@ -72,5 +73,11 @@
 	```
     git tag -a v1.0.4 -m '数量增减控件1.0.4:1,增加设置加减符号文字颜色属性.2,增加控制是否可进行数字编辑属性'
     git push origin v1.0.4
+    git tag
+    ```
+    数量增减控件1.0.5:完善.
+	```
+    git tag -a v1.0.5 -m '数量增减控件1.0.5:完善'
+    git push origin v1.0.5
     git tag
     ```
