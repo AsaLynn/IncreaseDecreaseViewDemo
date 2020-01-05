@@ -60,14 +60,13 @@ creaseview.setOnCreaseChangeListener(new CreaseView.OnCreaseChangeListener() {
 });
 ```
 #### 效果图
-最终效果.
-![Image text](/image/view1.png)
 
-![Image text](https://github.com/zhang721688/IncreaseDecreaseViewDemo/tree/master/image/view1.png)
+
+
 
 ![](https://github.com/zhang721688/IncreaseDecreaseViewDemo/tree/master/image/view1.png)
 
-![](https://github.com/scwang90/SmartRefreshLayout/raw/master/art/png_apk_rqcode.png)
+
 #### 打标签:
 	
 数量增减控件
