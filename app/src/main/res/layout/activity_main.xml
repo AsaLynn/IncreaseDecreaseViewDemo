@@ -4,17 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:background="@color/c_ffffff"
+    android:orientation="vertical">
 
 
-     <com.zxn.crease.CreaseView
-         app:numBackground="@drawable/bg_d_sp_rec_r_times"
-         app:increaseIcon="@drawable/bg_d_sc_oval_times"
-         app:decreaseIcon="@drawable/bg_d_sc_oval_times"
-         android:id="@+id/creaseview"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content" />
+    <com.zxn.crease.CreaseView
+        android:id="@+id/creaseview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:decreaseIcon="@drawable/bg_d_sc_oval_times"
+        app:increaseIcon="@drawable/bg_d_sc_oval_times"
+        app:numBackground="@drawable/bg_d_sp_rec_r_times" />
+
+    <com.zxn.crease.CreaseView
+        android:id="@+id/cv2"
+        app:numEditable="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:background="@color/c_ffffff"
+        app:buttonTextColor="@color/sc_enabled_text_c_crease_view"
+        app:numBackground="@drawable/bg_sp_rec_r4_c_e0e0e2" />
 
     <TextView
         android:id="@+id/textView"

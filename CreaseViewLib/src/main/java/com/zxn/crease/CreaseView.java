@@ -1,6 +1,7 @@
 package com.zxn.crease;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -10,6 +11,7 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -35,6 +37,8 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
     private Drawable mDecreaseDrawable;
     private Drawable mIncreaseDrawable;
     private Drawable mNumBackgroundDrawable;
+    private ColorStateList mColorStateList;
+    private boolean mNumEditable = true;
 
     public CreaseView(Context context) {
         this(context, null);
@@ -65,6 +69,9 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
 
             mIncreaseDrawable = typedArray.getDrawable(R.styleable.CreaseView_increaseIcon);
 
+            mColorStateList = typedArray.getColorStateList(R.styleable.CreaseView_buttonTextColor);
+
+            mNumEditable = typedArray.getBoolean(R.styleable.CreaseView_numEditable, true);
             typedArray.recycle();
         }
 
@@ -118,6 +125,9 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
 
     private void initView() {
         tvDecrease = findViewById(R.id.tv_decrease);
+        if (null != mColorStateList){
+            tvDecrease.setTextColor(mColorStateList);
+        }
         if (null != mDecreaseDrawable) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 tvDecrease.setBackground(mDecreaseDrawable);
@@ -128,7 +138,13 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
 
         tvNum = findViewById(R.id.tv_num);
         tvNum.setText(String.valueOf(mCurrentNum));
-        tvNum.addTextChangedListener(this);
+        if (mNumEditable){
+            tvNum.addTextChangedListener(this);
+            tvNum.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
+        }else {
+            tvNum.setInputType(EditorInfo.TYPE_NULL);
+        }
+
         if (null != mNumBackgroundDrawable) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 tvNum.setBackground(mNumBackgroundDrawable);
@@ -139,6 +155,9 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
         }
 
         tvIncrease = findViewById(R.id.tv_increase);
+        if (null != mColorStateList){
+            tvIncrease.setTextColor(mColorStateList);
+        }
         if (null != mIncreaseDrawable) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 tvIncrease.setBackground(mIncreaseDrawable);

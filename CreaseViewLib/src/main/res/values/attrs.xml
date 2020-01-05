@@ -4,8 +4,10 @@
     <declare-styleable name="CreaseView">
 
         <attr name="numBackground" format="reference" />
+        <attr name="numEditable" format="boolean" />
         <attr name="decreaseIcon" format="reference" />
         <attr name="increaseIcon" format="reference" />
+        <attr name="buttonTextColor" format="reference|color"/>
 
     </declare-styleable>
 
