@@ -60,12 +60,8 @@ creaseview.setOnCreaseChangeListener(new CreaseView.OnCreaseChangeListener() {
 });
 ```
 #### 效果图
-                                                                     
+![Image text](/image/view1.png)                                                                      
                                                                                                      
-![Image text](https://github.com/zhang721688/IncreaseDecreaseViewDemo/tree/master/image/view1.png)   
-
-
-
 
 #### 打标签:
 	
