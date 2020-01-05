@@ -4,8 +4,9 @@
 #### 引入依赖
 引入依赖:
 ```
-implementation 'com.zxn.crease:CreaseViewLib:1.0.6'
-implementation 'com.zxn.crease:CreaseViewLib:1.0.5'
+implementation 'com.zxn.crease:CreaseViewLib:1.0.7'
+implementation 'com.zxn.crease:CreaseViewLib:1.0.6'//bug
+implementation 'com.zxn.crease:CreaseViewLib:1.0.5'//bug
 implementation 'com.zxn.crease:CreaseViewLib:1.0.4'
 implementation 'com.zxn.crease:CreaseViewLib:1.0.3'
 ```
@@ -65,13 +66,29 @@ creaseview.setOnCreaseChangeListener(new CreaseView.OnCreaseChangeListener() {
                                                                                                      
 
 #### 打标签:
-	
-数量增减控件
+
+数量增减控件1.0.7:代码中设置当前数量的方法,不进行点击回调.
 ```
-git tag -a v1.0.3 -m '数量增减控件1.0.3:增加方法判断输入框是否为空'
-git push origin v1.0.3
+git tag -a v1.0.7 -m '数量增减控件1.0.7:代码中设置当前数量的方法,不进行点击回调'
+git push origin v1.0.7
 git tag
 ```
+
+数量增减控件1.0.6:完善.
+```
+git tag -a v1.0.6 -m '数量增减控件1.0.6:完善'
+git push origin v1.0.6
+git tag
+```
+
+数量增减控件1.0.5:完善.
+```
+git tag -a v1.0.5 -m '数量增减控件1.0.5:完善'
+git push origin v1.0.5
+git tag
+```
+
+
 
 数量增减控件1.0.4:1,增加设置加减符号文字颜色属性.2,增加控制是否可进行数字编辑属性	
 ```
@@ -79,10 +96,17 @@ git tag -a v1.0.4 -m '数量增减控件1.0.4:1,增加设置加减符号文字�
 git push origin v1.0.4
 git tag
 ```
-数量增减控件1.0.5:完善.
+
+数量增减控件
+
 ```
-git tag -a v1.0.5 -m '数量增减控件1.0.5:完善'
-git push origin v1.0.5
+git tag -a v1.0.3 -m '数量增减控件1.0.3:增加方法判断输入框是否为空'
+git push origin v1.0.3
 git tag
 ```
+	
+
+
+
+
     

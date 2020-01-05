@@ -196,6 +196,21 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
 
         setDecreaseEnabled();
         setIncreaseEnabled();
+//        if (mOnCreaseChangeListener != null) {
+//            mOnCreaseChangeListener.onCreasedChanged(tvNum, mCurrentNum);
+//        }
+    }
+
+    public void setNumWithListener(int mCurrentNum) {
+        this.mCurrentNum = mCurrentNum;
+        tvNum.setText(String.valueOf(mCurrentNum));
+        tvNum.setSelection(tvNum.getText().length());
+        mDecreaseEnabled = mCurrentNum > mMinNum;
+        mIncreaseEnabled = mCurrentNum < mMaxNum;
+
+        setDecreaseEnabled();
+        setIncreaseEnabled();
+
         if (mOnCreaseChangeListener != null) {
             mOnCreaseChangeListener.onCreasedChanged(tvNum, mCurrentNum);
         }
