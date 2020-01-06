@@ -125,7 +125,7 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
 
     private void initView() {
         tvDecrease = findViewById(R.id.tv_decrease);
-        if (null != mColorStateList){
+        if (null != mColorStateList) {
             tvDecrease.setTextColor(mColorStateList);
         }
         if (null != mDecreaseDrawable) {
@@ -138,10 +138,10 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
 
         tvNum = findViewById(R.id.tv_num);
         tvNum.setText(String.valueOf(mCurrentNum));
-        if (mNumEditable){
+        if (mNumEditable) {
             tvNum.addTextChangedListener(this);
             tvNum.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
-        }else {
+        } else {
             tvNum.setInputType(EditorInfo.TYPE_NULL);
         }
 
@@ -155,7 +155,7 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
         }
 
         tvIncrease = findViewById(R.id.tv_increase);
-        if (null != mColorStateList){
+        if (null != mColorStateList) {
             tvIncrease.setTextColor(mColorStateList);
         }
         if (null != mIncreaseDrawable) {
@@ -315,6 +315,27 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
 
     public boolean isInputEmpty() {
         return TextUtils.isEmpty(tvNum.getText());
+    }
+
+    /**
+     * 控制+-按钮是否可进行点击.
+     * @param enabled   true可点击.
+     */
+    public void setCreaseClickEnabled(boolean enabled) {
+        if (enabled) {
+            setDecreaseEnabled();
+            setIncreaseEnabled();
+        } else {
+            llDecrease.setClickable(enabled);
+            llIncrease.setClickable(enabled);
+
+            tvDecrease.setEnabled(enabled);
+            tvIncrease.setEnabled(enabled);
+        }
+    }
+
+    public void setOnNumClickListener(OnClickListener listener){
+        tvNum.setOnClickListener(listener);
     }
 
 

@@ -4,6 +4,7 @@
 #### 引入依赖
 引入依赖:
 ```
+implementation 'com.zxn.crease:CreaseViewLib:1.0.8'
 implementation 'com.zxn.crease:CreaseViewLib:1.0.7'
 implementation 'com.zxn.crease:CreaseViewLib:1.0.6'//bug
 implementation 'com.zxn.crease:CreaseViewLib:1.0.5'//bug
@@ -62,10 +63,19 @@ creaseview.setOnCreaseChangeListener(new CreaseView.OnCreaseChangeListener() {
 });
 ```
 #### 效果图
-![Image text](/image/view1.png)                                                                      
+![Image text](/image/view1.png)
+
+![Image text](/image/view2.png)                                                                        
                                                                                                      
 
 #### 打标签:
+
+数量增减控件1.0.8:1,增加数字输入框的点击事件;2,增加方法控制加减按钮是否可点击.
+```
+git tag -a v1.0.8 -m '数量增减控件1.0.8:代码中设置当前数量的方法,不进行点击回调'
+git push origin v1.0.8
+git tag
+```
 
 数量增减控件1.0.7:代码中设置当前数量的方法,不进行点击回调.
 ```

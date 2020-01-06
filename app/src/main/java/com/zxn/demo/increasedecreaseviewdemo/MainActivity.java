@@ -53,5 +53,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.i("MainActivity", "onCreasedChanged: -->"+num);
             }
         });
+
+        CreaseView cv3 = (CreaseView) findViewById(R.id.cv3);
+        cv3.setNum(5);
+        cv3.setCreaseClickEnabled(false);
+
+        CreaseView cv4 = (CreaseView) findViewById(R.id.cv4);
+        cv4.setCreaseClickEnabled(true);
+        cv4.setMaxNum(6);
+        cv4.setMinNum(1);
+        cv4.setNum(1);
+
+        CreaseView cv5 = (CreaseView) findViewById(R.id.cv5);
+        cv5.setOnNumClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "onClick", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

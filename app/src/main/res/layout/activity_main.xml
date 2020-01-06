@@ -18,41 +18,51 @@
 
     <com.zxn.crease.CreaseView
         android:id="@+id/cv2"
-        app:numEditable="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_20"
         android:background="@color/c_ffffff"
         app:buttonTextColor="@color/sc_enabled_text_c_crease_view"
-        app:numBackground="@drawable/bg_sp_rec_r4_c_e0e0e2" />
+        app:numBackground="@drawable/bg_sp_rec_r4_c_e0e0e2"
+        app:numEditable="false" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="100dp"
+    <com.zxn.crease.CreaseView
+        android:id="@+id/cv3"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/bg_d_sc_rec_text"
-        android:enabled="false"
-        android:padding="20dp"
-        android:text="TextView" />
+        android:layout_marginTop="@dimen/dp_20"
+        android:background="@color/c_ffffff"
+        app:buttonTextColor="@color/sc_enabled_text_c_crease_view"
+        app:numBackground="@drawable/bg_sp_rec_r4_c_e0e0e2"
+        app:numEditable="false" />
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/bg_d_sc_rec_text" />
+    <com.zxn.crease.CreaseView
+        android:id="@+id/cv4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:background="@color/c_ffffff"
+        app:buttonTextColor="@color/sc_enabled_text_c_crease_view"
+        app:numBackground="@drawable/bg_sp_rec_r4_c_e0e0e2"
+        app:numEditable="false" />
 
-    <ImageButton
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@drawable/bg_d_sc_rec_text" />
+    <com.zxn.crease.CreaseView
+        android:id="@+id/cv5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:background="@color/c_ffffff"
+        app:buttonTextColor="@color/sc_enabled_text_c_crease_view"
+        app:numBackground="@drawable/bg_sp_rec_r4_c_e0e0e2"
+        app:numEditable="false" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
         android:background="#969696"
         android:orientation="vertical">
-
 
         <com.zxn.crease.CreaseButton
             android:layout_width="100dp"
@@ -62,16 +72,6 @@
             app:textColor="@android:color/white"
             app:textDrawable="@drawable/bg_d_sp_rec_text_on"
             app:textSize="50sp" />
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/bg_d_sp_rec_r_num"
-            android:enabled="false"
-            android:padding="20dp"
-            android:text="TextView" />
 
     </LinearLayout>
 
