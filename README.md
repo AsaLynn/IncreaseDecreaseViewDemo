@@ -72,7 +72,7 @@ creaseview.setOnCreaseChangeListener(new CreaseView.OnCreaseChangeListener() {
 
 数量增减控件1.0.8:1,增加数字输入框的点击事件;2,增加方法控制加减按钮是否可点击.
 ```
-git tag -a v1.0.8 -m '数量增减控件1.0.8:代码中设置当前数量的方法,不进行点击回调'
+git tag -a v1.0.8 -m '1,增加数字输入框的点击事件;2,增加方法控制加减按钮是否可点击'
 git push origin v1.0.8
 git tag
 ```
