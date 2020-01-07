@@ -73,6 +73,14 @@ creaseview.setOnCreaseChangeListener(new CreaseView.OnCreaseChangeListener() {
 
 #### 打标签:
 
+//todo:
+数量增减控件1.1.0:键盘输入为空的时候,加减按钮逻辑处理
+```
+git tag -a v1.1.0 -m '键盘输入为空的时候,加减按钮逻辑处理'
+git push origin v1.1.0
+git tag
+```
+
 数量增减控件1.0.9:1,增加设置数字颜色属性,2,完善修复可驱动控件高度
 ```
 git tag -a v1.0.9 -m '1,增加设置数字颜色属性,2,完善修复可驱动控件高度'

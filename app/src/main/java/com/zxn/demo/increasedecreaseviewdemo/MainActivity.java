@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initView() {
         creaseview = (CreaseView) findViewById(R.id.creaseview);
-        creaseview.setMaxNum(10);
+        creaseview.setMaxNum(1);
         creaseview.setMinNum(1);
         creaseview.setNum(1);
         creaseview.setOnCreaseChangeListener(new CreaseView.OnCreaseChangeListener() {

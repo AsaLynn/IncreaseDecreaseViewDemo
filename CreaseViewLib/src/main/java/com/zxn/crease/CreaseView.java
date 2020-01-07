@@ -241,12 +241,14 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
         setDecreaseEnabled();
     }
 
+    //控制减号
     private void setDecreaseEnabled() {
         tvDecrease.setEnabled(mDecreaseEnabled);
         llDecrease.setClickable(mDecreaseEnabled);
 
     }
 
+    //控制加号
     private void setIncreaseEnabled() {
         tvIncrease.setEnabled(mIncreaseEnabled);
         llIncrease.setClickable(mIncreaseEnabled);
@@ -309,6 +311,12 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
 //            if (mOnCreaseChangeListener != null) {
 //                mOnCreaseChangeListener.onCreasedChanged(tvNum, mCurrentNum);
 //            }
+        }else {
+            mDecreaseEnabled = false;
+            setDecreaseEnabled();
+            mCurrentNum = (mMinNum - 1);
+            mIncreaseEnabled = true;
+            setIncreaseEnabled();
         }
 
     }

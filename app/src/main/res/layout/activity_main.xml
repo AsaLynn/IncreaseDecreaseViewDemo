@@ -21,7 +21,7 @@
     <com.zxn.crease.CreaseView
         android:id="@+id/cv2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_20"
         android:background="@color/c_ffffff"
@@ -32,7 +32,7 @@
     <com.zxn.crease.CreaseView
         android:id="@+id/cv3"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_20"
         android:background="@color/c_ffffff"
