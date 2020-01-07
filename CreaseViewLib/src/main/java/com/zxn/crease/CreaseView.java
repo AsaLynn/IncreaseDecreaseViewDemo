@@ -3,12 +3,14 @@ package com.zxn.crease;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -23,6 +25,7 @@ import android.widget.Toast;
  */
 public class CreaseView extends RelativeLayout implements View.OnClickListener, TextWatcher {
 
+    private static final int DEFAULT_HEIGHT_DP = 30;
     protected TextView tvDecrease;
     protected EditText tvNum;
     protected TextView tvIncrease;
@@ -39,6 +42,8 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
     private Drawable mNumBackgroundDrawable;
     private ColorStateList mColorStateList;
     private boolean mNumEditable = true;
+    private String TAG = CreaseView.class.getSimpleName();
+    private int mNumColor;
 
     public CreaseView(Context context) {
         this(context, null);
@@ -72,17 +77,16 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
             mColorStateList = typedArray.getColorStateList(R.styleable.CreaseView_buttonTextColor);
 
             mNumEditable = typedArray.getBoolean(R.styleable.CreaseView_numEditable, true);
+
+            mNumColor = typedArray.getColor(R.styleable.CreaseView_numColor, Color.parseColor("#101010"));
             typedArray.recycle();
         }
 
         initView();
 
-
         //final Drawable d = a.getDrawable(R.styleable.ImageView_src);
         // background = a.getDrawable(attr);
-
 //        tvNum.setBackgroundTintList();
-
         //tvNum.setBackground(null);
     }
 
@@ -137,6 +141,7 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
         }
 
         tvNum = findViewById(R.id.tv_num);
+        tvNum.setTextColor(mNumColor);
         tvNum.setText(String.valueOf(mCurrentNum));
         if (mNumEditable) {
             tvNum.addTextChangedListener(this);
@@ -319,7 +324,8 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
 
     /**
      * 控制+-按钮是否可进行点击.
-     * @param enabled   true可点击.
+     *
+     * @param enabled true可点击.
      */
     public void setCreaseClickEnabled(boolean enabled) {
         if (enabled) {
@@ -334,10 +340,36 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
         }
     }
 
-    public void setOnNumClickListener(OnClickListener listener){
+    public void setOnNumClickListener(OnClickListener listener) {
         tvNum.setOnClickListener(listener);
     }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        if (heightMode == MeasureSpec.AT_MOST) {
+            int hSize = MeasureSpec.getSize(heightMeasureSpec);//得到高度
+            Log.i(TAG, "onMeasure: " + "AT_MOST : hSize:" + hSize);
+            getLayoutParams().height = dp2px(DEFAULT_HEIGHT_DP);
+        } else if (heightMode == MeasureSpec.UNSPECIFIED) {
+            Log.i(TAG, "onMeasure: " + "UNSPECIFIED");
+        } else if (heightMode == MeasureSpec.EXACTLY) {
+            int hSize = MeasureSpec.getSize(heightMeasureSpec);//得到高度
+            Log.i(TAG, "onMeasure: " + "EXACTLY : hSize:" + hSize);
+        }
+    }
+
+    /**
+     * dp转px
+     *
+     * @param dpValue dp值
+     * @return px值
+     */
+    public int dp2px(final float dpValue) {
+        final float scale = getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
 
     public interface OnCreaseChangeListener {
         /**

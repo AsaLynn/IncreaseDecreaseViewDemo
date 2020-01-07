@@ -3,13 +3,13 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 28
-        versionCode 8
-        versionName "1.0.8"
+        targetSdkVersion 29
+        versionCode 9
+        versionName "1.0.9"
     }
 
     buildTypes {
@@ -27,7 +27,7 @@ def siteUrl = 'https://github.com/zhang721688/IncreaseDecreaseViewDemo'
 def gitUrl = 'https://github.com/zhang721688/IncreaseDecreaseViewDemo.git'
 def libName = "CreaseViewLib"
 group = "com.zxn.crease"
-version = "1.0.8"
+version = "1.0.9"
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
     classifier = 'sources'

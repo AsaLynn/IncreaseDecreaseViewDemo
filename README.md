@@ -4,6 +4,7 @@
 #### 引入依赖
 引入依赖:
 ```
+implementation 'com.zxn.crease:CreaseViewLib:1.0.9'
 implementation 'com.zxn.crease:CreaseViewLib:1.0.8'
 implementation 'com.zxn.crease:CreaseViewLib:1.0.7'
 implementation 'com.zxn.crease:CreaseViewLib:1.0.6'//bug
@@ -65,10 +66,19 @@ creaseview.setOnCreaseChangeListener(new CreaseView.OnCreaseChangeListener() {
 #### 效果图
 ![Image text](/image/view1.png)
 
-![Image text](/image/view2.png)                                                                        
+![Image text](/image/view2.png)            
+                                                            
+![Image text](/image/view3.png)                                                                        
                                                                                                      
 
 #### 打标签:
+
+数量增减控件1.0.9:1,增加设置数字颜色属性,2,完善修复可驱动控件高度
+```
+git tag -a v1.0.9 -m '1,增加设置数字颜色属性,2,完善修复可驱动控件高度'
+git push origin v1.0.9
+git tag
+```
 
 数量增减控件1.0.8:1,增加数字输入框的点击事件;2,增加方法控制加减按钮是否可点击.
 ```
@@ -107,8 +117,7 @@ git push origin v1.0.4
 git tag
 ```
 
-数量增减控件
-
+数量增减控件1.0.3:增加方法判断输入框是否为空
 ```
 git tag -a v1.0.3 -m '数量增减控件1.0.3:增加方法判断输入框是否为空'
 git push origin v1.0.3

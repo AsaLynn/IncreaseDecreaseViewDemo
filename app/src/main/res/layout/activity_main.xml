@@ -7,11 +7,13 @@
     android:background="@color/c_ffffff"
     android:orientation="vertical">
 
-
     <com.zxn.crease.CreaseView
+        app:numColor="@color/c_40e1a6"
         android:id="@+id/creaseview"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/dp_60"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_10"
         app:decreaseIcon="@drawable/bg_d_sc_oval_times"
         app:increaseIcon="@drawable/bg_d_sc_oval_times"
         app:numBackground="@drawable/bg_d_sp_rec_r_times" />
@@ -20,6 +22,7 @@
         android:id="@+id/cv2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_20"
         android:background="@color/c_ffffff"
         app:buttonTextColor="@color/sc_enabled_text_c_crease_view"
@@ -30,6 +33,7 @@
         android:id="@+id/cv3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_20"
         android:background="@color/c_ffffff"
         app:buttonTextColor="@color/sc_enabled_text_c_crease_view"
@@ -40,6 +44,7 @@
         android:id="@+id/cv4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_20"
         android:background="@color/c_ffffff"
         app:buttonTextColor="@color/sc_enabled_text_c_crease_view"
@@ -50,6 +55,7 @@
         android:id="@+id/cv5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_20"
         android:background="@color/c_ffffff"
         app:buttonTextColor="@color/sc_enabled_text_c_crease_view"
