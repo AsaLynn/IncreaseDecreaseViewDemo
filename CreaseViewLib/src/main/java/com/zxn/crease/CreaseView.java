@@ -5,6 +5,7 @@ import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -142,6 +143,7 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
 
         tvNum = findViewById(R.id.tv_num);
         tvNum.setTextColor(mNumColor);
+
         tvNum.setText(String.valueOf(mCurrentNum));
         if (mNumEditable) {
             tvNum.addTextChangedListener(this);

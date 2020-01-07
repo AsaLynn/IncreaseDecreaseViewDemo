@@ -27,6 +27,8 @@
 
 
     <EditText
+        android:cursorVisible="true"
+        android:textCursorDrawable="@null"
         android:textColor="@color/c_101010"
         android:gravity="center"
         android:padding="1dp"
