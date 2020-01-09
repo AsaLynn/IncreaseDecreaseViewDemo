@@ -4,6 +4,8 @@
 #### 引入依赖
 引入依赖:
 ```
+implementation 'com.zxn.crease:CreaseViewLib:1.1.1'
+implementation 'com.zxn.crease:CreaseViewLib:1.1.0'
 implementation 'com.zxn.crease:CreaseViewLib:1.0.9'
 implementation 'com.zxn.crease:CreaseViewLib:1.0.8'
 implementation 'com.zxn.crease:CreaseViewLib:1.0.7'
