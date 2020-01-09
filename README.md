@@ -19,7 +19,7 @@ xml布局中放置控件1
 <com.zxn.crease.CreaseView
     android:id="@+id/creaseview"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_height="30dp"
     app:decreaseIcon="@drawable/bg_d_sc_oval_times"
     app:increaseIcon="@drawable/bg_d_sc_oval_times"
     app:numBackground="@drawable/bg_d_sp_rec_r_times" />
@@ -30,7 +30,7 @@ xml布局中放置控件2
     android:id="@+id/cv2"
     app:numEditable="false"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_height="20dp"
     android:layout_marginTop="@dimen/dp_20"
     android:background="@color/c_ffffff"
     app:buttonTextColor="@color/sc_enabled_text_c_crease_view"
@@ -47,6 +47,9 @@ xml布局中放置控件2
      增加和减少符号的文字符号颜色,能否点击的颜色选择器.
  - numEditable
      控制是否可进行键盘输入的操作,默认为true,可进行键盘录入.
+注意事项:
+- 布局中需要制定具体的高度:
+`android:layout_height="20dp"`
        
 代码中的应用:
 ```
@@ -73,7 +76,13 @@ creaseview.setOnCreaseChangeListener(new CreaseView.OnCreaseChangeListener() {
 
 #### 打标签:
 
-//todo:
+数量增减控件1.1.1:配置高度属性
+```
+git tag -a v1.1.1 -m '配置高度属性'
+git push origin v1.1.1
+git tag
+```
+
 数量增减控件1.1.0:键盘输入为空的时候,加减按钮逻辑处理
 ```
 git tag -a v1.1.0 -m '键盘输入为空的时候,加减按钮逻辑处理'

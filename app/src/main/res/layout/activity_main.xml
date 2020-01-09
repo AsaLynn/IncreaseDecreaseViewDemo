@@ -8,7 +8,6 @@
     android:orientation="vertical">
 
     <com.zxn.crease.CreaseView
-        app:numColor="@color/c_40e1a6"
         android:id="@+id/creaseview"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp_60"
@@ -16,7 +15,8 @@
         android:layout_marginTop="@dimen/dp_10"
         app:decreaseIcon="@drawable/bg_d_sc_oval_times"
         app:increaseIcon="@drawable/bg_d_sc_oval_times"
-        app:numBackground="@drawable/bg_d_sp_rec_r_times" />
+        app:numBackground="@drawable/bg_d_sp_rec_r_times"
+        app:numColor="@color/c_40e1a6" />
 
     <com.zxn.crease.CreaseView
         android:id="@+id/cv2"
@@ -43,7 +43,7 @@
     <com.zxn.crease.CreaseView
         android:id="@+id/cv4"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_20"
         android:background="@color/c_ffffff"
@@ -54,7 +54,7 @@
     <com.zxn.crease.CreaseView
         android:id="@+id/cv5"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_20"
         android:background="@color/c_ffffff"
@@ -62,13 +62,13 @@
         app:numBackground="@drawable/bg_sp_rec_r4_c_e0e0e2"
         app:numEditable="false" />
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_20"
         android:background="#969696"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <com.zxn.crease.CreaseButton
             android:layout_width="100dp"

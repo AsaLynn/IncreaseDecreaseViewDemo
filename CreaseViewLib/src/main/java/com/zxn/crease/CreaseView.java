@@ -361,7 +361,7 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
         if (heightMode == MeasureSpec.AT_MOST) {
             int hSize = MeasureSpec.getSize(heightMeasureSpec);//得到高度
             Log.i(TAG, "onMeasure: " + "AT_MOST : hSize:" + hSize);
-            getLayoutParams().height = dp2px(DEFAULT_HEIGHT_DP);
+            //getLayoutParams().height = dp2px(DEFAULT_HEIGHT_DP);
         } else if (heightMode == MeasureSpec.UNSPECIFIED) {
             Log.i(TAG, "onMeasure: " + "UNSPECIFIED");
         } else if (heightMode == MeasureSpec.EXACTLY) {
