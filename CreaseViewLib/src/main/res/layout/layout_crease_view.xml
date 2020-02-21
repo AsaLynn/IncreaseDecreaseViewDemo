@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
 
     <LinearLayout
-        android:gravity="center"
         android:id="@+id/ll_decrease"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_d_sc_pre_crease"
+        android:gravity="center"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
@@ -27,30 +25,29 @@
 
 
     <EditText
-        android:cursorVisible="true"
-        android:textCursorDrawable="@null"
-        android:textColor="@color/c_101010"
-        android:gravity="center"
-        android:padding="1dp"
         android:id="@+id/tv_num"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginLeft="2dp"
         android:layout_toRightOf="@id/ll_decrease"
         android:background="@drawable/bg_d_sp_rec_r_num"
+        android:cursorVisible="true"
+        android:gravity="center"
         android:inputType="number"
         android:minWidth="40dp"
         android:minHeight="30dp"
-        android:text="0" />
+        android:padding="1dp"
+        android:text="0"
+        android:textColor="@color/c_101010"
+        android:textCursorDrawable="@null" />
 
     <LinearLayout
-        android:gravity="center"
         android:id="@+id/ll_increase"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginLeft="2dp"
         android:layout_toRightOf="@id/tv_num"
-        android:background="@drawable/bg_d_sc_pre_crease"
+        android:gravity="center"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
@@ -69,3 +66,7 @@
 
 </merge>
 
+    <!--
+     android:background="@drawable/bg_d_sc_pre_crease"
+     android:background="@drawable/bg_d_sc_pre_crease"
+    -->

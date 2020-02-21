@@ -4,6 +4,7 @@
 #### 引入依赖
 引入依赖:
 ```
+implementation 'com.zxn.crease:CreaseViewLib:1.1.2'
 implementation 'com.zxn.crease:CreaseViewLib:1.1.1'
 implementation 'com.zxn.crease:CreaseViewLib:1.1.0'
 implementation 'com.zxn.crease:CreaseViewLib:1.0.9'
@@ -77,6 +78,13 @@ creaseview.setOnCreaseChangeListener(new CreaseView.OnCreaseChangeListener() {
                                                                                                      
 
 #### 打标签:
+
+数量增减控件1.1.2:配置高度属性
+```
+git tag -a v1.1.2 -m '配置高度属性'
+git push origin v1.1.2
+git tag
+```
 
 数量增减控件1.1.1:配置高度属性
 ```
