@@ -10,8 +10,8 @@ implementation 'com.zxn.crease:CreaseViewLib:1.1.0'
 implementation 'com.zxn.crease:CreaseViewLib:1.0.9'
 implementation 'com.zxn.crease:CreaseViewLib:1.0.8'
 implementation 'com.zxn.crease:CreaseViewLib:1.0.7'
-implementation 'com.zxn.crease:CreaseViewLib:1.0.6'//bug
-implementation 'com.zxn.crease:CreaseViewLib:1.0.5'//bug
+implementation 'com.zxn.crease:CreaseViewLib:1.0.6'
+implementation 'com.zxn.crease:CreaseViewLib:1.0.5'
 implementation 'com.zxn.crease:CreaseViewLib:1.0.4'
 implementation 'com.zxn.crease:CreaseViewLib:1.0.3'
 ```

@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void keyBoardHide(int height) {
-                creaseview.setMinNum(1);
+                creaseview.setMinNum(0);
                 creaseview.setNum(1);
                 creaseview.setCursorVisible(false);
             }
@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initView() {
         creaseview = (CreaseView) findViewById(R.id.creaseview);
-        creaseview.setMaxNum(1);
-        creaseview.setMinNum(1);
+        creaseview.setMaxNum(10);
+        creaseview.setMinNum(0);
         creaseview.setNum(1);
         creaseview.setOnCreaseChangeListener(new CreaseView.OnCreaseChangeListener() {
             @Override
