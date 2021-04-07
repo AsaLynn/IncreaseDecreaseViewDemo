@@ -9,10 +9,10 @@ import android.widget.Toast;
 import com.zxn.crease.CreaseView;
 import com.zxn.utils.SoftKeyBoardManager;
 
-//CreaseActivity
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     protected CreaseView creaseview;
+    private String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,17 +55,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        CreaseView cv3 = (CreaseView) findViewById(R.id.cv3);
+        CreaseView cv3 = findViewById(R.id.cv3);
         cv3.setNum(5);
         cv3.setCreaseClickEnabled(false);
 
-        CreaseView cv4 = (CreaseView) findViewById(R.id.cv4);
+        CreaseView cv4 = findViewById(R.id.cv4);
         cv4.setCreaseClickEnabled(true);
         cv4.setMaxNum(6);
         cv4.setMinNum(1);
         cv4.setNum(1);
 
-        CreaseView cv5 = (CreaseView) findViewById(R.id.cv5);
+        CreaseView cv5 = findViewById(R.id.cv5);
         cv5.setMaxNum(5);
         cv5.setMinNum(1);
         cv5.setNum(5);
@@ -74,6 +74,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "onClick", Toast.LENGTH_SHORT).show();
                 CreaseActivity.jumpTo(MainActivity.this);
+            }
+        });
+
+        CreaseView cv6 = findViewById(R.id.cv6);
+        cv6.setMaxNum(2000);
+        cv6.setMinNum(0);
+        cv6.setNum(500);
+        cv6.setOnCreaseChangeListener(new CreaseView.OnCreaseChangeListener() {
+            @Override
+            public void onCreasedChanged(View view, int num) {
+                Log.i(TAG, "onCreasedChanged: num:" + num);
             }
         });
     }

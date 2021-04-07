@@ -1,13 +1,20 @@
-apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'org.jetbrains.dokka'
+    id 'kotlin-android-extensions'
+    id 'com.github.dcendents.android-maven'
+    id 'com.jfrog.bintray'
+}
+
+version = "1.1.4"
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 13
         versionName "1.1.3"
     }
@@ -21,33 +28,12 @@ android {
 
 }
 
-dependencies {
-}
+dependencies {}
+
 def siteUrl = 'https://github.com/zhang721688/IncreaseDecreaseViewDemo'
 def gitUrl = 'https://github.com/zhang721688/IncreaseDecreaseViewDemo.git'
 def libName = "CreaseViewLib"
 group = "com.zxn.crease"
-version = "1.1.3"
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-}
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-task copyDoc(type: Copy) {
-    from "${buildDir}/docs/"
-    into "docs"
-}
-artifacts {
-    archives javadocJar
-    archives sourcesJar
-}
 install {
     repositories.mavenInstaller {
         pom {
@@ -77,6 +63,46 @@ install {
         }
     }
 }
+
+
+task generateSourcesJar(type: Jar) {
+    group = 'jar'
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaTask) {
+    //outputFormat = 'javadoc'
+    outputFormat = 'html'
+    outputDirectory = javadoc.destinationDir
+}
+
+task generateJavadoc(type: Jar, dependsOn: dokkaJavadoc) {
+    group = 'jar'
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives generateJavadoc
+    archives generateSourcesJar
+}
+
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 bintray {
@@ -86,20 +112,13 @@ bintray {
     pkg {
         repo = "IncreaseDecreaseViewDemo"
         name = libName
-        desc = 'A view for decrease or increase...'
+        desc = 'desc content'
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         licenses = ["Apache-2.0"]
         publish = true
     }
 }
-
-javadoc {
-    options{
-        encoding "UTF-8"
-        charSet 'UTF-8'
-        author true
-        version true
-        links "http://docs.oracle.com/javase/7/docs/api"
-    }
+repositories {
+    mavenCentral()
 }

@@ -44,6 +44,10 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
     private boolean mNumEditable = true;
     private String TAG = CreaseView.class.getSimpleName();
     private int mNumColor;
+    private boolean buttonTextEnabled;
+    private CharSequence unit;
+    private int multiple = 1;
+    private boolean isAddChangedListener;
 
     public CreaseView(Context context) {
         this(context, null);
@@ -56,6 +60,7 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
     public CreaseView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         onInit(attrs);
+
     }
 
     private void onInit(AttributeSet attrs) {
@@ -79,10 +84,22 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
             mNumEditable = typedArray.getBoolean(R.styleable.CreaseView_numEditable, true);
 
             mNumColor = typedArray.getColor(R.styleable.CreaseView_numColor, Color.parseColor("#101010"));
+
+            buttonTextEnabled = typedArray.getBoolean(R.styleable.CreaseView_buttonTextEnabled, true);
+
+            unit = typedArray.getText(R.styleable.CreaseView_unit);
+            if (TextUtils.isEmpty(unit)) {
+                unit = "";
+            }
+
+            multiple = typedArray.getInt(R.styleable.CreaseView_multiple, 1);
+
             typedArray.recycle();
         }
 
         initView();
+
+        setButtonTextEnabled(buttonTextEnabled);
 
         //final Drawable d = a.getDrawable(R.styleable.ImageView_src);
         // background = a.getDrawable(attr);
@@ -90,39 +107,47 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
         //tvNum.setBackground(null);
     }
 
+    private int result;
+
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.ll_decrease) {//-
-            mCurrentNum--;
-            if (mCurrentNum == mMinNum && mDecreaseEnabled) {
+        if (view.getId() == R.id.ll_decrease) {
+            result = --mCurrentNum * multiple;
+            if (result == mMinNum && mDecreaseEnabled) {
                 mDecreaseEnabled = !mDecreaseEnabled;
                 setDecreaseEnabled();
             }
-            if (/*mCurrentNum > mMinNum && */mCurrentNum < mMaxNum && !mIncreaseEnabled) {
+            if (/*mCurrentNum > mMinNum && */result < mMaxNum && !mIncreaseEnabled) {
                 mIncreaseEnabled = !mIncreaseEnabled;
                 setIncreaseEnabled();
             }
-            etNum.setText(String.valueOf(mCurrentNum));
+            //etNum.setText(String.valueOf(mCurrentNum));
+            showNumber();
             etNum.setSelection(etNum.getText().length());
             etNum.setCursorVisible(false);
-            if (mOnCreaseChangeListener != null) {
-                mOnCreaseChangeListener.onCreasedChanged(etNum, mCurrentNum);
+            if (!isAddChangedListener){
+                if (mOnCreaseChangeListener != null) {
+                    mOnCreaseChangeListener.onCreasedChanged(etNum, result);
+                }
             }
         } else if (view.getId() == R.id.ll_increase) {//+
-            mCurrentNum++;
-            if (mCurrentNum == mMaxNum && mIncreaseEnabled) {
+            result = ++mCurrentNum * multiple;
+            if (result == mMaxNum && mIncreaseEnabled) {
                 mIncreaseEnabled = !mIncreaseEnabled;
                 setIncreaseEnabled();
             }
-            if (mCurrentNum > mMinNum && !mDecreaseEnabled) {
+            if (result > mMinNum && !mDecreaseEnabled) {
                 mDecreaseEnabled = !mDecreaseEnabled;
                 setDecreaseEnabled();
             }
-            etNum.setText(String.valueOf(mCurrentNum));
+            //etNum.setText(String.valueOf(mCurrentNum));
+            showNumber();
             etNum.setSelection(etNum.getText().length());
             etNum.setCursorVisible(false);
-            if (mOnCreaseChangeListener != null) {
-                mOnCreaseChangeListener.onCreasedChanged(etNum, mCurrentNum);
+            if (!isAddChangedListener){
+                if (mOnCreaseChangeListener != null) {
+                    mOnCreaseChangeListener.onCreasedChanged(etNum, result);
+                }
             }
         }
     }
@@ -143,9 +168,11 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
         etNum = findViewById(R.id.tv_num);
         etNum.setTextColor(mNumColor);
 
-        etNum.setText(String.valueOf(mCurrentNum));
+        //etNum.setText(String.valueOf(mCurrentNum));
+        showNumber();
         if (mNumEditable) {
             etNum.addTextChangedListener(this);
+            isAddChangedListener = true;
             etNum.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
         } else {
             etNum.setInputType(EditorInfo.TYPE_NULL);
@@ -177,10 +204,10 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
         llIncrease = (LinearLayout) findViewById(R.id.ll_increase);
         llIncrease.setOnClickListener(CreaseView.this);
 
-        mDecreaseEnabled = mCurrentNum > mMinNum;
+        mDecreaseEnabled = result > mMinNum;
         // mDecreaseEnabled = false;
         setDecreaseEnabled();
-        mIncreaseEnabled = mCurrentNum < mMaxNum;
+        mIncreaseEnabled = result < mMaxNum;
         setIncreaseEnabled();
 
     }
@@ -190,26 +217,29 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
     }
 
     public int getNum() {
-        return mCurrentNum;
+        return result;
     }
 
     public void setNum(int mCurrentNum) {
-        this.mCurrentNum = mCurrentNum;
-        etNum.setText(String.valueOf(mCurrentNum));
+        result = mCurrentNum;
+        this.mCurrentNum = mCurrentNum / multiple;
+        //result = mCurrentNum * multiple;
+        //etNum.setText(String.valueOf(mCurrentNum) + unit);
+        showNumber();
         etNum.setSelection(etNum.getText().length());
         mDecreaseEnabled = mCurrentNum > mMinNum;
         mIncreaseEnabled = mCurrentNum < mMaxNum;
 
         setDecreaseEnabled();
         setIncreaseEnabled();
-//        if (mOnCreaseChangeListener != null) {
-//            mOnCreaseChangeListener.onCreasedChanged(tvNum, mCurrentNum);
-//        }
+
+
     }
 
     public void setNumWithListener(int mCurrentNum) {
-        this.mCurrentNum = mCurrentNum;
-        etNum.setText(String.valueOf(mCurrentNum));
+        this.result = mCurrentNum;
+        //etNum.setText(String.valueOf(mCurrentNum));
+        showNumber();
         etNum.setSelection(etNum.getText().length());
         mDecreaseEnabled = mCurrentNum > mMinNum;
         mIncreaseEnabled = mCurrentNum < mMaxNum;
@@ -228,7 +258,7 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
 
     public void setMaxNum(int mMaxNum) {
         this.mMaxNum = mMaxNum;
-        mIncreaseEnabled = mCurrentNum < mMaxNum;
+        mIncreaseEnabled = result < mMaxNum;
         setIncreaseEnabled();
     }
 
@@ -238,7 +268,7 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
 
     public void setMinNum(int mMinNum) {
         this.mMinNum = mMinNum;
-        mDecreaseEnabled = mCurrentNum > mMinNum;
+        mDecreaseEnabled = result > mMinNum;
         setDecreaseEnabled();
     }
 
@@ -267,27 +297,32 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
 
     @Override
     public void afterTextChanged(Editable s) {
-        onAfterTextChanged(etNum, s);
+        boolean again = onAfterTextChanged(etNum, s);
+        if (again) return;
+
         if (!TextUtils.isEmpty(s)) {
             int inputNum = Integer.parseInt(s.toString());
             if (inputNum > mMaxNum) {
-                mCurrentNum = mMaxNum;
+                result = mMaxNum;
                 Toast.makeText(getContext(), "输入最大值不可超过" + mMaxNum, Toast.LENGTH_LONG).show();
-                etNum.setText(String.valueOf(mCurrentNum));
+                //etNum.setText(String.valueOf(mCurrentNum));
+                showNumber();
                 etNum.setSelection(etNum.getText().length());
             } else if (inputNum < mMinNum) {
-                mCurrentNum = mMinNum;
+                result = mMinNum;
                 Toast.makeText(getContext(), "输入最小值不可低于" + mMinNum, Toast.LENGTH_SHORT).show();
-                etNum.setText(String.valueOf(mCurrentNum));
+                //etNum.setText(String.valueOf(mCurrentNum));
+                showNumber();
                 etNum.setSelection(etNum.getText().length());
             } else {
-                mCurrentNum = inputNum;
+                this.mCurrentNum = inputNum;
+                result = inputNum * multiple;
                 if (mOnCreaseChangeListener != null) {
-                    mOnCreaseChangeListener.onCreasedChanged(etNum, mCurrentNum);
+                    mOnCreaseChangeListener.onCreasedChanged(etNum, result);
                 }
             }
 
-            if (mCurrentNum == mMaxNum && mIncreaseEnabled) {
+            if (result == mMaxNum && mIncreaseEnabled) {
                 mIncreaseEnabled = !mIncreaseEnabled;
                 setIncreaseEnabled();
             } /*else if (mCurrentNum >= mMinNum && mCurrentNum < mMaxNum) {
@@ -295,16 +330,16 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
                 setIncreaseEnabled();
             }*/
 
-            if (mCurrentNum < mMaxNum && !mIncreaseEnabled) {
+            if (result < mMaxNum && !mIncreaseEnabled) {
                 mIncreaseEnabled = !mIncreaseEnabled;
                 setIncreaseEnabled();
             }
-            if (mCurrentNum > mMinNum && !mDecreaseEnabled) {
+            if (result > mMinNum && !mDecreaseEnabled) {
                 mDecreaseEnabled = !mDecreaseEnabled;
                 setDecreaseEnabled();
             }
 
-            if (mCurrentNum == mMinNum && mDecreaseEnabled) {
+            if (result == mMinNum && mDecreaseEnabled) {
                 mDecreaseEnabled = !mDecreaseEnabled;
                 setDecreaseEnabled();
             }
@@ -313,10 +348,10 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
 //            if (mOnCreaseChangeListener != null) {
 //                mOnCreaseChangeListener.onCreasedChanged(tvNum, mCurrentNum);
 //            }
-        }else {
+        } else {
             mDecreaseEnabled = false;
             setDecreaseEnabled();
-            mCurrentNum = (mMinNum - 1);
+            result = (mMinNum - 1);
             mIncreaseEnabled = true;
             setIncreaseEnabled();
         }
@@ -392,15 +427,45 @@ public class CreaseView extends RelativeLayout implements View.OnClickListener, 
         void onCreasedChanged(View view, int num);
     }
 
-    public void onAfterTextChanged(final EditText editText, Editable editable) {
+    /**
+     * 是否处理了不合法的显示
+     *
+     * @param editText
+     * @param editable
+     * @return true:处理了
+     */
+    public boolean onAfterTextChanged(final EditText editText, Editable editable) {
+        boolean isTextChangedAgain = false;
         if (TextUtils.isEmpty(editable.toString())) {
             editText.setText("0");
             editText.setSelection(1);
+            isTextChangedAgain = true;
         }
         if (editable.toString().length() >= 2 && editable.toString().startsWith("0")) {
             editText.setText(editable.toString().substring(1));
             editText.setSelection(editable.toString().length() - 1);
+            isTextChangedAgain = true;
+        }
+        return isTextChangedAgain;
+    }
+
+    /**
+     * 控制点击按钮师傅显示文字的+-号.
+     *
+     * @param buttonTextEnabled
+     */
+    public void setButtonTextEnabled(boolean buttonTextEnabled) {
+        this.buttonTextEnabled = buttonTextEnabled;
+        if (buttonTextEnabled) {
+            tvDecrease.setText("-");
+            tvIncrease.setText("+");
+        } else {
+            tvDecrease.setText("");
+            tvIncrease.setText("");
         }
     }
 
+    private void showNumber() {
+        etNum.setText(String.valueOf(result).concat(unit.toString()));
+    }
 }

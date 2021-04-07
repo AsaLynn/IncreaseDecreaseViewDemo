@@ -1,19 +1,17 @@
 # IncreaseDecreaseViewDemo
-产品数量增减变化的一个控件.
+数量增减变化的一个控件.
+
+#### 效果图
+![Image text](/image/view1.png)
+
+![Image text](/image/view2.png)
+
+![Image text](/image/view3.png)
 
 #### 引入依赖
 引入依赖:
 ```
-implementation 'com.zxn.crease:CreaseViewLib:1.1.2'
-implementation 'com.zxn.crease:CreaseViewLib:1.1.1'
-implementation 'com.zxn.crease:CreaseViewLib:1.1.0'
-implementation 'com.zxn.crease:CreaseViewLib:1.0.9'
-implementation 'com.zxn.crease:CreaseViewLib:1.0.8'
-implementation 'com.zxn.crease:CreaseViewLib:1.0.7'
-implementation 'com.zxn.crease:CreaseViewLib:1.0.6'
-implementation 'com.zxn.crease:CreaseViewLib:1.0.5'
-implementation 'com.zxn.crease:CreaseViewLib:1.0.4'
-implementation 'com.zxn.crease:CreaseViewLib:1.0.3'
+implementation 'com.zxn.crease:CreaseViewLib:1.1.4'
 ```
     
 #### 使用:
@@ -69,13 +67,16 @@ creaseview.setOnCreaseChangeListener(new CreaseView.OnCreaseChangeListener() {
     }
 });
 ```
-#### 效果图
-![Image text](/image/view1.png)
 
-![Image text](/image/view2.png)            
-                                                            
-![Image text](/image/view3.png)                                                                        
-                                                                                                     
+#### 版本日志
+v1.1.4:
+- 增加属性`buttonTextEnabled`控制是否显示增减按钮文字,默认为true.
+
+- 新增属性`unit`,控制是否显示单位,默认为空字符串.
+
+- 新增属性`multiple`,控制按照指定倍数变化,默认为1.
+
+- 解决了变化监听回调多次的bug.
 
 #### 打标签:
 

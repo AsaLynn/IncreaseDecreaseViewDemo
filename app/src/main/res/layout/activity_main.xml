@@ -81,5 +81,33 @@
 
     </LinearLayout>
 
+    <com.zxn.crease.CreaseView
+        android:id="@+id/cv6"
+        app:numEditable="false"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_60"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_10"
+        app:decreaseIcon="@mipmap/bg_ic_scale_btn_decrease"
+        app:increaseIcon="@mipmap/bg_ic_scale_btn_increase"
+        app:numBackground="@drawable/bg_sp_rec_volume"
+        app:buttonTextEnabled="false"
+        app:unit="ml"
+        app:multiple="10"
+        app:numColor="#111A34" />
+
+
 
 </LinearLayout>
+
+
+<!--
+    <TextView
+        android:id="@+id/tv_"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:enabled="false"
+        android:textColor="@color/c_ffffff"
+        android:textSize="@dimen/sp_15" />
+-->
